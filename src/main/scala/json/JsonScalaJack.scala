@@ -7,7 +7,7 @@ import org.json4s.native.Serialization.{read, write}
 import util.Timer
 
 object JsonScalaJack {
-   
+
    implicit val formats = Serialization.formats(NoTypeHints)
    val person = Person("Charles Hunt", 28, true, List(), List(3000L,738434L), None)
 
@@ -28,7 +28,7 @@ object JsonScalaJack {
    def runScalaJackToScala : Long = {
       val timer = new Timer()
       timer.start()
-      val person : Person = ScalaJack.read[Person]("")
+      val person : Person = ScalaJack.read[Person]("""{"name":"Charles Hunt","age":28,"isLiving":true,"parents":[],"favoriteLongNumbers":[3000,738434]}""")
       timer.stop()
       timer.getDuration
    }
@@ -37,6 +37,7 @@ object JsonScalaJack {
       val timer = new Timer()
       timer.start()
       val json : String = ScalaJack.render[Person](person)
+      show(json)
       timer.stop()
       timer.getDuration
    }
@@ -52,21 +53,28 @@ object JsonScalaJack {
    def runJson4sToScala : Long = {
       val timer = new Timer()
       timer.start()
-      val person = read("")
+      //val person = read("""{"name":"Charles Hunt","age":28,"isLiving":true,"parents":[],"favoriteLongNumbers":[3000,738434]}""")
       timer.stop()
       timer.getDuration
    }
-
-   case class Person(
-      name: String,
-      age: Int,
-      isLiving: Boolean,
-      parents: List[Person],
-      favoriteLongNumbers: List[Long],
-      optionalField: Option[String]
-   )
-
 }
+
+case class Person(
+   name: String,
+   age: Int,
+   isLiving: Boolean,
+   parents: List[ParentPerson],
+   favoriteLongNumbers: List[Long],
+   optionalField: Option[String]
+)
+
+case class ParentPerson(
+   name: String,
+   age: Int,
+   isLiving: Boolean,
+   favoriteLongNumbers: List[Long],
+   optionalField: Option[String]
+)
 
 
 
