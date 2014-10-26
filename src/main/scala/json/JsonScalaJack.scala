@@ -2,28 +2,59 @@ package json
 
 import co.blocke.scalajack.ScalaJack
 import org.json4s._
-import org.json4s.native.JsonMethods._
+import org.json4s.native.Serialization
+import org.json4s.native.Serialization.{read, write}
+import util.Timer
 
 object JsonScalaJack {
+   
+   implicit val formats = Serialization.formats(NoTypeHints)
+   val person = Person("Charles Hunt", 28, true, List(), List(3000L,738434L), None)
 
    def main(args: Array[String]) {
-      //todo go
+      val json4sToJSON = runJson4sToJSON
+      val json4sToScala = runJson4sToScala
+      val scalaJackToJSON = runScalaJackToJSON
+      val scalaJackToScala = runScalaJackToScala
+
+      show("json4sToJSON: " + json4sToJSON)
+      show("json4sToScala: " + json4sToScala)
+      show("scalaJackToJSON: " + scalaJackToJSON)
+      show("scalaJackToScala: " + scalaJackToScala)
    }
 
-   def runScalaJackToScala = {
-      //ScalaJack.read[Person]()
+   def show(show: String) = println(show)
+
+   def runScalaJackToScala : Long = {
+      val timer = new Timer()
+      timer.start()
+      val person : Person = ScalaJack.read[Person]("")
+      timer.stop()
+      timer.getDuration
    }
 
-   def runScalaJackToJSON = {
-      //ScalaJack.render[Person]()
+   def runScalaJackToJSON : Long = {
+      val timer = new Timer()
+      timer.start()
+      val json : String = ScalaJack.render[Person](person)
+      timer.stop()
+      timer.getDuration
    }
 
-   def runJson4sToJSON = {
-      //compact(render(json))
+   def runJson4sToJSON : Long = {
+      val timer = new Timer()
+      timer.start()
+      val json = write(person)
+      timer.stop()
+      timer.getDuration
    }
 
-   def runJson4sToScala = {
-      //parse()
+   def runJson4sToScala : Long = {
+      val timer = new Timer()
+      timer.start()
+      val person = read("")
+      timer.stop()
+      timer.getDuration
    }
 
    case class Person(
@@ -31,7 +62,8 @@ object JsonScalaJack {
       age: Int,
       isLiving: Boolean,
       parents: List[Person],
-      favoriteLongNumbers: List[Long]
+      favoriteLongNumbers: List[Long],
+      optionalField: Option[String]
    )
 
 }
