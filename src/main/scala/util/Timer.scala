@@ -9,13 +9,16 @@ class Timer {
    private var finishTime = 0L
 
    def start() {
+      require(!started)
       startedTime = System.currentTimeMillis
       started = true
    }
 
    def stop() {
+      require(started)
       finishTime = System.currentTimeMillis
       started = false
+      require(finishTime > startedTime)
       duration = finishTime - startedTime
    }
 
