@@ -9,27 +9,29 @@ import util.Timer
 object JsonScalaJack {
 
    implicit val formats = Serialization.formats(NoTypeHints)
-   val person = Person("Charles Hunt", 28, true, List(ParentPerson("Wendell Hunt", 57, true)), List(3000L,738434L), Some("blah"))
+   val person = Person("Child", 28, true, List(ParentPerson("Parent", 57, true)), List(3000L,738434L), Some("blah"))
    val personList : List[Person] = (1 to 25000).foldLeft(List[Person]())((a,c) => a :+ person)
 
    def main(args: Array[String]) {
+
 
       val json4sToJSON = runJson4sToJSON
       val json4sToScala = runJson4sToScala
       val scalaJackToJSON = runScalaJackToJSON
       val scalaJackToScala = runScalaJackToScala
+      val json4sToJSONList = runJson4sToJSONList
+      val json4sToScalaList = runJson4sToScalaList
+      val scalaJackToJSONList = runScalaJackToJSONList
+      val scalaJackToScalaList = runScalaJackToScalaList
+
+      show("------------Single Item-----------------")
 
       show("json4sToJSON: " + json4sToJSON)
       show("json4sToScala: " + json4sToScala)
       show("scalaJackToJSON: " + scalaJackToJSON)
       show("scalaJackToScala: " + scalaJackToScala)
 
-      show("----------------------------------")
-
-      val json4sToJSONList = runJson4sToJSONList
-      val json4sToScalaList = runJson4sToScalaList
-      val scalaJackToJSONList = runScalaJackToJSONList
-      val scalaJackToScalaList = runScalaJackToScalaList
+      show("-------------Large List------------------")
 
       show("json4sToJSONList: " + json4sToJSONList)
       show("json4sToScalaList: " + json4sToScalaList)
@@ -99,6 +101,15 @@ object JsonScalaJack {
       val timer = new Timer()
       timer.start()
       val personList : List[Person] = read[List[Person]]("""[{"name":"Charles Hunt","age":28,"isLiving":true,"parents":[{"name":"Wendell Hunt","age":57,"isLiving":true}],"favoriteLongNumbers":[3000,738434],"optionalField":"blah"},{"name":"Charles Hunt","age":28,"isLiving":true,"parents":[{"name":"Wendell Hunt","age":57,"isLiving":true}],"favoriteLongNumbers":[3000,738434],"optionalField":"blah"},{"name":"Charles Hunt","age":28,"isLiving":true,"parents":[{"name":"Wendell Hunt","age":57,"isLiving":true}],"favoriteLongNumbers":[3000,738434],"optionalField":"blah"},{"name":"Charles Hunt","age":28,"isLiving":true,"parents":[{"name":"Wendell Hunt","age":57,"isLiving":true}],"favoriteLongNumbers":[3000,738434],"optionalField":"blah"},{"name":"Charles Hunt","age":28,"isLiving":true,"parents":[{"name":"Wendell Hunt","age":57,"isLiving":true}],"favoriteLongNumbers":[3000,738434],"optionalField":"blah"},{"name":"Charles Hunt","age":28,"isLiving":true,"parents":[{"name":"Wendell Hunt","age":57,"isLiving":true}],"favoriteLongNumbers":[3000,738434],"optionalField":"blah"},{"name":"Charles Hunt","age":28,"isLiving":true,"parents":[{"name":"Wendell Hunt","age":57,"isLiving":true}],"favoriteLongNumbers":[3000,738434],"optionalField":"blah"},{"name":"Charles Hunt","age":28,"isLiving":true,"parents":[{"name":"Wendell Hunt","age":57,"isLiving":true}],"favoriteLongNumbers":[3000,738434],"optionalField":"blah"},{"name":"Charles Hunt","age":28,"isLiving":true,"parents":[{"name":"Wendell Hunt","age":57,"isLiving":true}],"favoriteLongNumbers":[3000,738434],"optionalField":"blah"},{"name":"Charles Hunt","age":28,"isLiving":true,"parents":[{"name":"Wendell Hunt","age":57,"isLiving":true}],"favoriteLongNumbers":[3000,738434],"optionalField":"blah"},{"name":"Charles Hunt","age":28,"isLiving":true,"parents":[{"name":"Wendell Hunt","age":57,"isLiving":true}],"favoriteLongNumbers":[3000,738434],"optionalField":"blah"},{"name":"Charles Hunt","age":28,"isLiving":true,"parents":[{"name":"Wendell Hunt","age":57,"isLiving":true}],"favoriteLongNumbers":[3000,738434],"optionalField":"blah"},{"name":"Charles Hunt","age":28,"isLiving":true,"parents":[{"name":"Wendell Hunt","age":57,"isLiving":true}],"favoriteLongNumbers":[3000,738434],"optionalField":"blah"},{"name":"Charles Hunt","age":28,"isLiving":true,"parents":[{"name":"Wendell Hunt","age":57,"isLiving":true}],"favoriteLongNumbers":[3000,738434],"optionalField":"blah"},{"name":"Charles Hunt","age":28,"isLiving":true,"parents":[{"name":"Wendell Hunt","age":57,"isLiving":true}],"favoriteLongNumbers":[3000,738434],"optionalField":"blah"},{"name":"Charles Hunt","age":28,"isLiving":true,"parents":[{"name":"Wendell Hunt","age":57,"isLiving":true}],"favoriteLongNumbers":[3000,738434],"optionalField":"blah"},{"name":"Charles Hunt","age":28,"isLiving":true,"parents":[{"name":"Wendell Hunt","age":57,"isLiving":true}],"favoriteLongNumbers":[3000,738434],"optionalField":"blah"},{"name":"Charles Hunt","age":28,"isLiving":true,"parents":[{"name":"Wendell Hunt","age":57,"isLiving":true}],"favoriteLongNumbers":[3000,738434],"optionalField":"blah"},{"name":"Charles Hunt","age":28,"isLiving":true,"parents":[{"name":"Wendell Hunt","age":57,"isLiving":true}],"favoriteLongNumbers":[3000,738434],"optionalField":"blah"},{"name":"Charles Hunt","age":28,"isLiving":true,"parents":[{"name":"Wendell Hunt","age":57,"isLiving":true}],"favoriteLongNumbers":[3000,738434],"optionalField":"blah"},{"name":"Charles Hunt","age":28,"isLiving":true,"parents":[{"name":"Wendell Hunt","age":57,"isLiving":true}],"favoriteLongNumbers":[3000,738434],"optionalField":"blah"},{"name":"Charles Hunt","age":28,"isLiving":true,"parents":[{"name":"Wendell Hunt","age":57,"isLiving":true}],"favoriteLongNumbers":[3000,738434],"optionalField":"blah"},{"name":"Charles Hunt","age":28,"isLiving":true,"parents":[{"name":"Wendell Hunt","age":57,"isLiving":true}],"favoriteLongNumbers":[3000,738434],"optionalField":"blah"},{"name":"Charles Hunt","age":28,"isLiving":true,"parents":[{"name":"Wendell Hunt","age":57,"isLiving":true}],"favoriteLongNumbers":[3000,738434],"optionalField":"blah"},{"name":"Charles Hunt","age":28,"isLiving":true,"parents":[{"name":"Wendell Hunt","age":57,"isLiving":true}],"favoriteLongNumbers":[3000,738434],"optionalField":"blah"},{"name":"Charles Hunt","age":28,"isLiving":true,"parents":[{"name":"Wendell Hunt","age":57,"isLiving":true}],"favoriteLongNumbers":[3000,738434],"optionalField":"blah"},{"name":"Charles Hunt","age":28,"isLiving":true,"parents":[{"name":"Wendell Hunt","age":57,"isLiving":true}],"favoriteLongNumbers":[3000,738434],"optionalField":"blah"},{"name":"Charles Hunt","age":28,"isLiving":true,"parents":[{"name":"Wendell Hunt","age":57,"isLiving":true}],"favoriteLongNumbers":[3000,738434],"optionalField":"blah"},{"name":"Charles Hunt","age":28,"isLiving":true,"parents":[{"name":"Wendell Hunt","age":57,"isLiving":true}],"favoriteLongNumbers":[3000,738434],"optionalField":"blah"},{"name":"Charles Hunt","age":28,"isLiving":true,"parents":[{"name":"Wendell Hunt","age":57,"isLiving":true}],"favoriteLongNumbers":[3000,738434],"optionalField":"blah"},{"name":"Charles Hunt","age":28,"isLiving":true,"parents":[{"name":"Wendell Hunt","age":57,"isLiving":true}],"favoriteLongNumbers":[3000,738434],"optionalField":"blah"},{"name":"Charles Hunt","age":28,"isLiving":true,"parents":[{"name":"Wendell Hunt","age":57,"isLiving":true}],"favoriteLongNumbers":[3000,738434],"optionalField":"blah"},{"name":"Charles Hunt","age":28,"isLiving":true,"parents":[{"name":"Wendell Hunt","age":57,"isLiving":true}],"favoriteLongNumbers":[3000,738434],"optionalField":"blah"},{"name":"Charles Hunt","age":28,"isLiving":true,"parents":[{"name":"Wendell Hunt","age":57,"isLiving":true}],"favoriteLongNumbers":[3000,738434],"optionalField":"blah"},{"name":"Charles Hunt","age":28,"isLiving":true,"parents":[{"name":"Wendell Hunt","age":57,"isLiving":true}],"favoriteLongNumbers":[3000,738434],"optionalField":"blah"},{"name":"Charles Hunt","age":28,"isLiving":true,"parents":[{"name":"Wendell Hunt","age":57,"isLiving":true}],"favoriteLongNumbers":[3000,738434],"optionalField":"blah"},{"name":"Charles Hunt","age":28,"isLiving":true,"parents":[{"name":"Wendell Hunt","age":57,"isLiving":true}],"favoriteLongNumbers":[3000,738434],"optionalField":"blah"},{"name":"Charles Hunt","age":28,"isLiving":true,"parents":[{"name":"Wendell Hunt","age":57,"isLiving":true}],"favoriteLongNumbers":[3000,738434],"optionalField":"blah"},{"name":"Charles Hunt","age":28,"isLiving":true,"parents":[{"name":"Wendell Hunt","age":57,"isLiving":true}],"favoriteLongNumbers":[3000,738434],"optionalField":"blah"},{"name":"Charles Hunt","age":28,"isLiving":true,"parents":[{"name":"Wendell Hunt","age":57,"isLiving":true}],"favoriteLongNumbers":[3000,738434],"optionalField":"blah"},{"name":"Charles Hunt","age":28,"isLiving":true,"parents":[{"name":"Wendell Hunt","age":57,"isLiving":true}],"favoriteLongNumbers":[3000,738434],"optionalField":"blah"},{"name":"Charles Hunt","age":28,"isLiving":true,"parents":[{"name":"Wendell Hunt","age":57,"isLiving":true}],"favoriteLongNumbers":[3000,738434],"optionalField":"blah"},{"name":"Charles Hunt","age":28,"isLiving":true,"parents":[{"name":"Wendell Hunt","age":57,"isLiving":true}],"favoriteLongNumbers":[3000,738434],"optionalField":"blah"},{"name":"Charles Hunt","age":28,"isLiving":true,"parents":[{"name":"Wendell Hunt","age":57,"isLiving":true}],"favoriteLongNumbers":[3000,738434],"optionalField":"blah"},{"name":"Charles Hunt","age":28,"isLiving":true,"parents":[{"name":"Wendell Hunt","age":57,"isLiving":true}],"favoriteLongNumbers":[3000,738434],"optionalField":"blah"},{"name":"Charles Hunt","age":28,"isLiving":true,"parents":[{"name":"Wendell Hunt","age":57,"isLiving":true}],"favoriteLongNumbers":[3000,738434],"optionalField":"blah"},{"name":"Charles Hunt","age":28,"isLiving":true,"parents":[{"name":"Wendell Hunt","age":57,"isLiving":true}],"favoriteLongNumbers":[3000,738434],"optionalField":"blah"},{"name":"Charles Hunt","age":28,"isLiving":true,"parents":[{"name":"Wendell Hunt","age":57,"isLiving":true}],"favoriteLongNumbers":[3000,738434],"optionalField":"blah"},{"name":"Charles Hunt","age":28,"isLiving":true,"parents":[{"name":"Wendell Hunt","age":57,"isLiving":true}],"favoriteLongNumbers":[3000,738434],"optionalField":"blah"},{"name":"Charles Hunt","age":28,"isLiving":true,"parents":[{"name":"Wendell Hunt","age":57,"isLiving":true}],"favoriteLongNumbers":[3000,738434],"optionalField":"blah"}]""")
+      timer.stop()
+      timer.getDuration
+   }
+
+   //todo: reusable timer method
+   def go( f:() => String ): Long = {
+      val timer = new Timer()
+      timer.start()
+      val result = f
       timer.stop()
       timer.getDuration
    }
