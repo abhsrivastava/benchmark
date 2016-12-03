@@ -105,15 +105,6 @@ object JsonScalaJack {
       timer.stop()
       timer.getDuration
    }
-
-   //todo: reusable timer method
-   def go( f:() => String ): Long = {
-      val timer = new Timer()
-      timer.start()
-      val result = f
-      timer.stop()
-      timer.getDuration
-   }
 }
 
 case class Person(
