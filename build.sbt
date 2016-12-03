@@ -1,23 +1,19 @@
-name := "becnhmark"
+name := "ScalaJackTest"
 
-organization := "com.cornfluence"
+description := "ScalaJackTest"
 
-description := "Benchmarking tool"
+version := "1.0.0"
 
-version := "0.1.0"
+scalaVersion := "2.11.8"
 
-scalaVersion := "2.11.2"
-
-resolvers ++= Seq(
-  "OSS"  at "http://oss.sonatype.org/content/repositories/releases"
-)
+useJCenter := true
 
 libraryDependencies ++= {
   Seq(
-    "org.scalatest" %% "scalatest" % "2.2.1" % "test",
-    "co.blocke"	  %% "scalajack" % "2.0.5",
-    "org.json4s" %% "json4s-native" % "3.2.11",
-    "org.json4s" %% "json4s-jackson" % "3.2.11"
+    "co.blocke" %% "scalajack" % "5.0.2",
+    "org.json4s" % "json4s-native_2.11" % "3.5.0",
+    "org.json4s" % "json4s-jackson_2.11" % "3.5.0",
+    "org.scalatest" %% "scalatest" % "2.2.1" % "test"
   )
 }
 
