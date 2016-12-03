@@ -40,7 +40,8 @@ object JsonBenchmark {
       val sj = ScalaJack()
       val timer = new Timer()
       timer.start()
-      val person : Person = sj.read[Person](personStr)
+      val result : Person = sj.read[Person](personStr)
+      assert(result.age == person.age)
       timer.stop()
       timer.getDuration
    }
@@ -65,7 +66,8 @@ object JsonBenchmark {
    def runJson4sReadJson : Long = {
       val timer = new Timer()
       timer.start()
-      val person = read[Person](personStr)
+      val result = read[Person](personStr)
+      assert(result.age == person.age)
       timer.stop()
       timer.getDuration
    }
@@ -74,7 +76,8 @@ object JsonBenchmark {
       val sj = ScalaJack()
       val timer = new Timer()
       timer.start()
-      val person : List[Person] = sj.read[List[Person]](personListStr)
+      val result : List[Person] = sj.read[List[Person]](personListStr)
+      assert(result.size == personList.size)
       timer.stop()
       timer.getDuration
    }
@@ -99,7 +102,8 @@ object JsonBenchmark {
    def runJson4sReadJsonList : Long = {
       val timer = new Timer()
       timer.start()
-      val personList : List[Person] = read[List[Person]](personListStr)
+      val result : List[Person] = read[List[Person]](personListStr)
+      assert(result.size == personList.size)
       timer.stop()
       timer.getDuration
    }
@@ -117,13 +121,14 @@ object JsonBenchmark {
       import io.circe._, io.circe.generic.auto._, io.circe.parser.decode
       val timer = new Timer()
       timer.start()
-      val person = decode[Person](personStr).right
+      val result = decode[Person](personStr).right.get
+      assert(result.age == person.age)
       timer.stop()
       timer.getDuration
    }
 
    def runCirceWriteJsonList : Long = {
-      import io.circe._, io.circe.generic.auto._, io.circe.parser._, io.circe.syntax._
+      import io.circe._, io.circe.generic.auto._, io.circe.syntax._
       val timer = new Timer()
       timer.start()
       val json = personList.asJson
@@ -135,7 +140,8 @@ object JsonBenchmark {
       import io.circe._, io.circe.generic.auto._, io.circe.parser.decode
       val timer = new Timer()
       timer.start()
-      val personList = decode[List[Person]](personListStr).right
+      val result = decode[List[Person]](personListStr).right.get
+      assert(result.size == personList.size)
       timer.stop()
       timer.getDuration
    }
