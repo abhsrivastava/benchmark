@@ -18,26 +18,21 @@ object JsonScalaJack {
 
    def main(args: Array[String]) {
 
+      println("------------Single Item-----------------")
 
-      val scalaJackToScalaList =
+      println("json4sToJSON: " + runJson4sToJSON)
+      println("json4sToScala: " + runJson4sToScala)
+      println("scalaJackToJSON: " + runScalaJackToJSON)
+      println("scalaJackToScala: " + runScalaJackToScala)
 
-      show("------------Single Item-----------------")
+      println("-------------Large List------------------")
 
-      show("json4sToJSON: " + runJson4sToJSON)
-      show("json4sToScala: " + runJson4sToScala)
-      show("scalaJackToJSON: " + runScalaJackToJSON)
-      show("scalaJackToScala: " + runScalaJackToScala)
-
-      show("-------------Large List------------------")
-
-      show("json4sToJSONList: " + runJson4sToJSONList)
-      show("json4sToScalaList: " + runJson4sToScalaList)
-      show("scalaJackToJSONList: " + runScalaJackToJSONList)
-      show("scalaJackToScalaList: " + runScalaJackToScalaList)
+      println("json4sToJSONList: " + runJson4sToJSONList)
+      println("json4sToScalaList: " + runJson4sToScalaList)
+      println("scalaJackToJSONList: " + runScalaJackToJSONList)
+      println("scalaJackToScalaList: " + runScalaJackToScalaList)
    }
-
-   def show(show: String) = println(show)
-
+   
    def runScalaJackToScala() : Long = {
       val sj = ScalaJack()
       val timer = new Timer()
