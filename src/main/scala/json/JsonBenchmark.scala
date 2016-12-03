@@ -6,8 +6,7 @@ import org.json4s.native.Serialization
 import org.json4s.native.Serialization.{read, write}
 import util.Timer
 
-object JsonScalaJack {
-
+object JsonBenchmark {
    implicit val formats = Serialization.formats(NoTypeHints)
    val person = Person("Child", 28, true, List(ParentPerson("Parent", 57, true)), List(3000L,738434L), Some("blah"))
    val personList : List[Person] = (1 to 25000).foldLeft(List[Person]())((a,c) => a :+ person)
@@ -20,20 +19,24 @@ object JsonScalaJack {
 
       println("------------Single Item-----------------")
 
-      println("json4sToJSON: " + runJson4sToJSON)
-      println("json4sToScala: " + runJson4sToScala)
-      println("scalaJackToJSON: " + runScalaJackToJSON)
-      println("scalaJackToScala: " + runScalaJackToScala)
+      println("json4s Write Json: " + runJson4sWriteJson)
+      println("json4s Read Json: " + runJson4sReadJson)
+      println("scalaJack Write Json: " + runScalaJackWriteJson)
+      println("scalaJack Read Json: " + runScalaJackReadJson)
+      println("Circe Write Json: " + runCirceWriteJson)
+      println("Circe Read Json: " + runCirceReadJson)
 
       println("-------------Large List------------------")
 
-      println("json4sToJSONList: " + runJson4sToJSONList)
-      println("json4sToScalaList: " + runJson4sToScalaList)
-      println("scalaJackToJSONList: " + runScalaJackToJSONList)
-      println("scalaJackToScalaList: " + runScalaJackToScalaList)
+      println("json4s Write JsonList: " + runJson4sWriteJsonList)
+      println("json4s Read JsonList: " + runJson4sReadJsonList)
+      println("scalaJack Write JsonList: " + runScalaJackWriteJsonList)
+      println("scalaJack Read JsonList: " + runScalaJackReadJsonList)
+      println("Circe Write JsonList: " + runCirceWriteJsonList)
+      println("Circe Read JsonList: " + runCirceReadJsonList)
    }
-   
-   def runScalaJackToScala() : Long = {
+
+   def runScalaJackReadJson() : Long = {
       val sj = ScalaJack()
       val timer = new Timer()
       timer.start()
@@ -42,7 +45,7 @@ object JsonScalaJack {
       timer.getDuration
    }
 
-   def runScalaJackToJSON : Long = {
+   def runScalaJackWriteJson : Long = {
       val sj = ScalaJack()
       val timer = new Timer()
       timer.start()
@@ -51,7 +54,7 @@ object JsonScalaJack {
       timer.getDuration
    }
 
-   def runJson4sToJSON : Long = {
+   def runJson4sWriteJson : Long = {
       val timer = new Timer()
       timer.start()
       val json = write(person)
@@ -59,7 +62,7 @@ object JsonScalaJack {
       timer.getDuration
    }
 
-   def runJson4sToScala : Long = {
+   def runJson4sReadJson : Long = {
       val timer = new Timer()
       timer.start()
       val person = read[Person](personStr)
@@ -67,7 +70,7 @@ object JsonScalaJack {
       timer.getDuration
    }
 
-   def runScalaJackToScalaList : Long = {
+   def runScalaJackReadJsonList : Long = {
       val sj = ScalaJack()
       val timer = new Timer()
       timer.start()
@@ -76,7 +79,7 @@ object JsonScalaJack {
       timer.getDuration
    }
 
-   def runScalaJackToJSONList : Long = {
+   def runScalaJackWriteJsonList : Long = {
       val sj = ScalaJack()
       val timer = new Timer()
       timer.start()
@@ -85,7 +88,7 @@ object JsonScalaJack {
       timer.getDuration
    }
 
-   def runJson4sToJSONList : Long = {
+   def runJson4sWriteJsonList : Long = {
       val timer = new Timer()
       timer.start()
       val json = write(personList)
@@ -93,10 +96,46 @@ object JsonScalaJack {
       timer.getDuration
    }
 
-   def runJson4sToScalaList : Long = {
+   def runJson4sReadJsonList : Long = {
       val timer = new Timer()
       timer.start()
       val personList : List[Person] = read[List[Person]](personListStr)
+      timer.stop()
+      timer.getDuration
+   }
+
+   def runCirceWriteJson : Long = {
+      import io.circe._, io.circe.generic.auto._, io.circe.syntax._
+      val timer = new Timer()
+      timer.start()
+      val json = person.asJson
+      timer.stop()
+      timer.getDuration
+   }
+
+   def runCirceReadJson : Long = {
+      import io.circe._, io.circe.generic.auto._, io.circe.parser.decode
+      val timer = new Timer()
+      timer.start()
+      val person = decode[Person](personStr).right
+      timer.stop()
+      timer.getDuration
+   }
+
+   def runCirceWriteJsonList : Long = {
+      import io.circe._, io.circe.generic.auto._, io.circe.parser._, io.circe.syntax._
+      val timer = new Timer()
+      timer.start()
+      val json = personList.asJson
+      timer.stop()
+      timer.getDuration
+   }
+
+   def runCirceReadJsonList : Long = {
+      import io.circe._, io.circe.generic.auto._, io.circe.parser.decode
+      val timer = new Timer()
+      timer.start()
+      val personList = decode[List[Person]](personListStr).right
       timer.stop()
       timer.getDuration
    }
